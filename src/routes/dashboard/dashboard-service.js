@@ -19,3 +19,5 @@ const DashboardService = {
             .then(newCustomer => DashboardService.getCustomerById(knex, newCustomer.id))
     }
 }
+
+module.exports = DashboardService

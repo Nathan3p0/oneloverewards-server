@@ -4,9 +4,9 @@ const requireAuth = require('../../middleware/jwt-auth')
 const dashboardRouter = express.Router()
 const jsonBodyParser = express.json()
 
-dashboardRouter.post('/add-member', requireAuth, jsonBodyParser, (req, res, next) => {
+dashboardRouter.post('/add-member', jsonBodyParser, (req, res, next) => {
     const { phone_number, email, name } = req.body
-
+    console.log(req.body)
     const newCustomer = {
         phone_number,
         email,
