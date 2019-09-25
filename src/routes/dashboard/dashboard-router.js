@@ -4,9 +4,14 @@ const requireAuth = require('../../middleware/jwt-auth')
 const dashboardRouter = express.Router()
 const jsonBodyParser = express.json()
 
+dashboardRouter.get('/members', (req, res, next) => {
+    DashboardService.getAllCustomers(req.app.get('db'))
+        .then(res => res.json())
+        .then(response => res.json({ response }))
+})
+
 dashboardRouter.post('/add-member', jsonBodyParser, (req, res, next) => {
     const { phone_number, email, name } = req.body
-    console.log(req.body)
     const newCustomer = {
         phone_number: phone_number,
         email: email,

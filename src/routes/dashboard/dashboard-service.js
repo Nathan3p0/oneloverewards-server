@@ -13,6 +13,9 @@ const DashboardService = {
             registered: customer.registered
         }
     },
+    getAllCustomers(knex) {
+        return knex.select().from('customers')
+    },
     createNewCustomer(knex, newCustomer) {
         return knex.insert(newCustomer).into('customers').returning('*')
             .then(([customer]) => customer)
