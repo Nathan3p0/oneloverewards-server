@@ -26,3 +26,5 @@ dashboardRouter.post('/add-member', requireAuth, jsonBodyParser, (req, res, next
         .then(customer => res.status(200).json(DashboardService.serializeCustomer(customer)))
         .catch(next)
 })
+
+module.exports = dashboardRouter
