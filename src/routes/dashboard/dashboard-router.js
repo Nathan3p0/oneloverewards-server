@@ -8,9 +8,9 @@ dashboardRouter.post('/add-member', jsonBodyParser, (req, res, next) => {
     const { phone_number, email, name } = req.body
     console.log(req.body)
     const newCustomer = {
-        phone_number,
-        email,
-        name
+        phone_number: phone_number,
+        email: email,
+        name: name
     }
 
     for (const [key, value] of Object.entries(newCustomer)) {
