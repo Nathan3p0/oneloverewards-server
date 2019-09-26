@@ -6,11 +6,21 @@ const jsonBodyParser = express.json()
 
 dashboardRouter.get('/members', (req, res, next) => {
     DashboardService.getAllCustomers(req.app.get('db'))
-        .then(res => res.json())
-        .then(response => res.json({ response }))
+        .then(customers => {
+            res.json(customers.map(DashboardService.serializeCustomer))
+        })
+        .catch(next)
 })
 
-dashboardRouter.post('/add-member', jsonBodyParser, (req, res, next) => {
+dashboardRouter.delete('/members/:id', (req, res, next) => {
+    DashboardService.deleteCustomerById(req.app.get('db'), req.params.id)
+        .then(() => {
+            res.status(204).end()
+        })
+        .catch(next)
+})
+
+dashboardRouter.post('/members', jsonBodyParser, (req, res, next) => {
     const { phone_number, email, name } = req.body
     const newCustomer = {
         phone_number: phone_number,

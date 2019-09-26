@@ -4,6 +4,9 @@ const DashboardService = {
     getCustomerById(knex, id) {
         return knex.select().from('customers').where('id', id).first()
     },
+    deleteCustomerById(knex, id) {
+        return knex('customers').where('id', id).del()
+    },
     serializeCustomer(customer) {
         return {
             id: customer.id,
