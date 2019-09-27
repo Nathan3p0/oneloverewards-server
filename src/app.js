@@ -5,7 +5,7 @@ const cors = require('cors')
 const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
 const authRouter = require('./auth/auth-router')
-const dashboardRouter = require('./routes/dashboard/dashboard-router')
+const membersRouter = require('./routes/dashboard/members-router')
 
 const app = express();
 
@@ -17,7 +17,7 @@ app.use(cors());
 
 
 app.use('/api/auth', authRouter)
-app.use('/api/dashboard', dashboardRouter)
+app.use('/api/dashboard/members', membersRouter)
 
 const errorHandler = (error, req, res, next) => {
     let response
