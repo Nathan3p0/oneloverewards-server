@@ -37,12 +37,10 @@ membersRouter.get('/points/:customer_id', (req, res, next) => {
         })
 })
 
-membersRouter.post('/points', jsonBodyParser, (req, res, next) => {
-    console.log(req.body)
-    const { points_total, customer_id } = req.body
+membersRouter.patch('/points/:id', jsonBodyParser, (req, res, next) => {
+    const { points_total, point_id } = req.body
     const newPointsTotal = {
-        points_total: points_total,
-        customer_id: customer_id
+        points_total: points_total
     }
 
     for (const [key, value] of Object.entries(newPointsTotal)) {
@@ -54,10 +52,9 @@ membersRouter.post('/points', jsonBodyParser, (req, res, next) => {
         }
     }
 
-    MembersService.addCustomerPoints(req.app.get('db'), newPointsTotal)
-        .then(points => res.status(200).json(points)
-            .catch(next)
-        )
+    MembersService.addCustomerPoints(req.app.get('db'), newPointsTotal, point_id)
+        .then(points => res.status(200).json(points))
+        .catch(next)
 })
 
 membersRouter.delete('/:phone_number', (req, res, next) => {

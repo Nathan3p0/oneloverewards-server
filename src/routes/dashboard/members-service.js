@@ -27,8 +27,13 @@ const MembersService = {
             .then(([customer]) => customer)
             .then(newCustomer => MembersService.getCustomerByPhone(knex, newCustomer.phone_number))
     },
-    addCustomerPoints(knex, newPointsTotal) {
-        return knex.insert(newPointsTotal).into('points').returning('*')
+    getCustomerById(knex, id) {
+        return knex.select().from('customers').where('id', id).first()
+    },
+    addCustomerPoints(knex, newPointsTotal, id) {
+        return knex('points').update(newPointsTotal).where('id', id).returning('*')
+            .then(([points]) => points)
+            .then(newPoints => MembersService.getCustomerById(knex, newPoints.customer_id))
     }
 }
 
