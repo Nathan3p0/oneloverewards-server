@@ -5,7 +5,7 @@ const MembersService = {
         return knex.select().from('customers').where('phone_number', phone).first()
     },
     getCustomerInfoJoin(knex, id) {
-        return knex('points').join('customers', 'points.customer_id', '=', 'customers.id').select('customers.name', 'points.id').where('customers.id', id)
+        return knex('points').join('customers', 'points.customer_id', '=', 'customers.id').select('customers.name', 'customers.phone_number', 'customers.email', 'points.points_total', 'points.id AS point_id', 'customers.id AS customer_id').where('customers.id', id).first()
     },
     deleteCustomerByPhone(knex, phone) {
         return knex('customers').where('phone_number', phone).del()
