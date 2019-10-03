@@ -9,13 +9,13 @@ const membersRouter = require('./routes/dashboard/members-router')
 const rewardsRouter = require('./routes/dashboard/rewards-router')
 const customersRouter = require('./routes/customers/customers-router')
 
-const app = express();
+const app = express()
 
 app.use(morgan((NODE_ENV === 'production') ? 'tiny' : 'common', {
     skip: () => NODE_ENV === 'test'
 }))
-app.use(helmet());
-app.use(cors());
+app.use(helmet())
+app.use(cors())
 
 
 app.use('/api/auth', authRouter)

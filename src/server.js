@@ -6,7 +6,7 @@ const { PORT, DATABASE_URL } = require('./config')
 
 const db = knex({
     client: 'pg',
-    connection: 'postgresql://postgres@localhost/oneloverewards'
+    connection: DATABASE_URL
 })
 
 app.set('db', db)
