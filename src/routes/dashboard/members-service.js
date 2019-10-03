@@ -34,6 +34,11 @@ const MembersService = {
         return knex('points').update(newPointsTotal).where('id', id).returning('*')
             .then(([points]) => points)
             .then(newPoints => MembersService.getCustomerById(knex, newPoints.customer_id))
+    },
+    createCustomerPoints(knex, newPoints) {
+        return knex.insert(newPoints).into('points').returning('*')
+            .then(([points]) => points)
+            .then(newPoints => MembersService.getCustomerById(knex, newPoints.customer_id))
     }
 }
 

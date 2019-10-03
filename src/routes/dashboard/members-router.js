@@ -37,7 +37,28 @@ membersRouter.get('/points/:customer_id', requireAuth, (req, res, next) => {
         })
 })
 
-membersRouter.patch('/points/:id', requireAuth, jsonBodyParser, (req, res, next) => {
+membersRouter.post('/points/', requireAuth, jsonBodyParser, (req, res, next) => {
+    const { customer_id } = req.body
+    const newPoints = {
+        points_total: 0,
+        customer_id: customer_id
+    }
+
+    for (const [key, value] of Object.entries(newPoints)) {
+        if (value == null) {
+            return res.status(400).json({
+                error: `You are missing ${key} in your request.`
+            }
+            )
+        }
+    }
+
+    MembersService.createCustomerPoints(req.app.get('db'), newPoints)
+        .then(points => res.status(200).json(points))
+        .catch(next)
+})
+
+membersRouter.patch('/points/', requireAuth, jsonBodyParser, (req, res, next) => {
     const { points_total, point_id } = req.body
     const newPointsTotal = {
         points_total: points_total
