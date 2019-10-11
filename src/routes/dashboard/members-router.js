@@ -12,6 +12,28 @@ membersRouter.get('/', requireAuth, (req, res, next) => {
         .catch(next)
 })
 
+membersRouter.post('/', requireAuth, jsonBodyParser, (req, res, next) => {
+    const { phone_number, email, name } = req.body
+    const newCustomer = {
+        phone_number: phone_number,
+        email: email,
+        name: name
+    }
+
+    for (const [key, value] of Object.entries(newCustomer)) {
+        if (value == null) {
+            return res.status(400).json({
+                error: `You are missing ${key} in your request.`
+            }
+            )
+        }
+    }
+
+    MembersService.createNewCustomer(req.app.get('db'), newCustomer)
+        .then(customer => res.status(200).json(MembersService.serializeCustomer(customer)))
+        .catch(next)
+})
+
 membersRouter.get('/:phone_number', requireAuth, (req, res, next) => {
     MembersService.getCustomerByPhone(req.app.get('db'), req.params.phone_number)
         .then(customer => {
@@ -85,28 +107,6 @@ membersRouter.delete('/:phone_number', (req, res, next) => {
                 success: 'Customer deletion from the Database was successful!'
             })
         })
-        .catch(next)
-})
-
-membersRouter.post('/', requireAuth, jsonBodyParser, (req, res, next) => {
-    const { phone_number, email, name } = req.body
-    const newCustomer = {
-        phone_number: phone_number,
-        email: email,
-        name: name
-    }
-
-    for (const [key, value] of Object.entries(newCustomer)) {
-        if (value == null) {
-            return res.status(400).json({
-                error: `You are missing ${key} in your request.`
-            }
-            )
-        }
-    }
-
-    MembersService.createNewCustomer(req.app.get('db'), newCustomer)
-        .then(customer => res.status(200).json(MembersService.serializeCustomer(customer)))
         .catch(next)
 })
 

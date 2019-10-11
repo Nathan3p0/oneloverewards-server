@@ -1,8 +1,6 @@
 const express = require('express')
 const RewardsService = require('./rewards-service')
-const requireAuth = require('../../middleware/jwt-auth')
 const rewardsRouter = express.Router()
-const jsonBodyParser = express.json()
 
 rewardsRouter.get('/', (req, res, next) => {
     RewardsService.getAllRewards(req.app.get('db'))
