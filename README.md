@@ -1,26 +1,24 @@
-# Express Boilerplate!
+## One Love Rewards Server
+The RESTful API server for the One Love Rewards application
 
-This is a boilerplate project used for starting new projects!
+## Demo
+[Live Demo](http://www.oneloverewards.surge.sh "http://www.oneloverewards.surge.sh")
 
-## Set up
+## Setting Up
 
-Complete the following steps to start a new project (NEW-PROJECT-NAME):
+- Install dependencies: `npm install`
+- Create development and test databases: `createdb oneloverewards`
+- Create database user: `createuser bobmarley`
+- Grant privileges to new user in `psql`:
+  - `GRANT ALL PRIVILEGES ON DATABASE oneloverewards TO bobmarley`
+- Prepare environment file: `cp example.env .env`
+- Replace values in `.env` with your custom values.
+- Bootstrap development database: `knex migrate:latest`
 
-1. Clone this repository to your local machine `git clone BOILERPLATE-URL NEW-PROJECTS-NAME`
-2. `cd` into the cloned repository
-3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
-4. Install the node dependencies `npm install`
-5. Move the example Environment file to `.env` that will be ignored by git and read by the express server `mv example.env .env`
-6. Edit the contents of the `package.json` to use NEW-PROJECT-NAME instead of `"name": "express-boilerplate",`
+## Sample Data
 
-## Scripts
+- To seed the database for development: `knex seed:run`
 
-Start the application `npm start`
 
-Start nodemon for the application `npm run dev`
-
-Run the tests `npm test`
-
-## Deploying
-
-When your new project is ready for deployment, add a new Heroku application with `heroku create`. This will make a new git remote called "heroku" and you can then `npm run deploy` which will push to this remote's master branch.
+## Authors
+1: Nathan Szelag
