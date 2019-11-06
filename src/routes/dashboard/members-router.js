@@ -38,7 +38,7 @@ membersRouter.get('/:phone_number', requireAuth, (req, res, next) => {
     MembersService.getCustomerByPhone(req.app.get('db'), req.params.phone_number)
         .then(customer => {
             if (!customer) {
-                return res.status(400).json({
+                return res.status(404).json({
                     error: 'No customer with that Phone Number Found'
                 })
             }
@@ -51,7 +51,7 @@ membersRouter.get('/points/:customer_id', requireAuth, (req, res, next) => {
     MembersService.getCustomerInfoJoin(req.app.get('db'), req.params.customer_id)
         .then(customer => {
             if (!customer) {
-                return res.status(400).json({
+                return res.status(404).json({
                     error: 'No data was found'
                 })
             }
